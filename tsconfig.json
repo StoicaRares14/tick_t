@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@auth/*": ["./src/auth/*"],
+      "@events/*": ["./src/events/*"],
+      "@users/*": ["./src/users/*"],
+      "@roles/*": ["./src/roles/*"],
+      "@tickets/*": ["./src/tickets/*"]
+    },
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2023",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false
+  }
+}
