@@ -1,0 +1,178 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateEventInput {
+  cover: String
+  date: DateTime
+  description: String
+  location: String
+  name: String!
+  price: Float
+  purchasedCount: Int!
+  ticketCount: Int!
+  time: String
+}
+
+input CreateTicketInput {
+  email: String
+  eventId: Int
+  purchaseDate: DateTime!
+  qrCode: String
+  userId: Int
+}
+
+input CreateUserInput {
+  birthDate: DateTime
+  email: String!
+  firstName: String!
+  password: String!
+  secondName: String!
+  username: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Event {
+  cover: String
+  date: DateTime
+  description: String
+  id: Int!
+  location: String
+  name: String!
+  price: Float
+  purchasedCount: Int!
+  ticketCount: Int!
+  time: String
+}
+
+input EventInput {
+  cover: String
+  date: DateTime
+  description: String
+  location: String
+  name: String
+  price: Float
+  purchasedCount: Int
+  ticketCount: Int
+  time: String
+}
+
+type EventResponse {
+  events: [Event!]
+  next: Int
+}
+
+type Mutation {
+  createEvent(event: CreateEventInput!): Event!
+  createTicket(tickets: [CreateTicketInput!]!): [Ticket!]!
+  createUser(user: CreateUserInput!): User!
+  deleteTicket(id: Int): String!
+  signIn(signInDto: SignInInput!): SignInResponse!
+  updateEvent(event: EventInput!, id: Int): Event!
+  updateTicket(id: Int, ticket: TicketInput!): Ticket!
+  updateUser(id: Int, user: UserInput!): User!
+  updateUserPassword(id: Int!, user: UserInput!): User!
+}
+
+type Query {
+  countEvents(available: Boolean, location: String, name: String): Int!
+  countTickets(eventId: Int, purchaseDate: DateTime): Int!
+  findAllEvents(query: QueryEventInput): EventResponse!
+  findAllTickets(query: QueryTicketInput): TicketResponse!
+  findAllUsers(query: QueryUserInput): UserResponse!
+  findOneEvent(id: Int!): Event
+  findOneTicket(id: Int!): Ticket
+  findOneUser(username: String!): User
+  getProfile(req: String!): String!
+}
+
+input QueryEventInput {
+  cover: String
+  date: DateTime
+  description: String
+  from: Int
+  limit: Int = 12
+  location: String
+  name: String
+  price: Float
+  purchasedCount: Int
+  ticketCount: Int
+  time: String
+}
+
+input QueryTicketInput {
+  eventId: Int
+  from: Int
+  limit: Int = 12
+  purchaseDate: DateTime
+  userId: Int
+}
+
+input QueryUserInput {
+  birthDate: DateTime
+  email: String
+  firstName: String
+  from: Int
+  limit: Int = 12
+  secondName: String
+  username: String
+}
+
+input SignInInput {
+  password: String!
+  username: String!
+}
+
+type SignInResponse {
+  accessToken: String!
+}
+
+type Ticket {
+  email: String
+  eventId: Int!
+  id: Int!
+  purchaseDate: DateTime!
+  qrCode: String
+  userId: Int
+}
+
+input TicketInput {
+  email: String
+  eventId: Int
+  purchaseDate: DateTime!
+  qrCode: String
+  userId: Int
+}
+
+type TicketResponse {
+  next: Int
+  tickets: [Ticket!]
+}
+
+type User {
+  birthDate: DateTime
+  email: String
+  firstName: String!
+  id: Int!
+  password: String!
+  roles: [String!]!
+  secondName: String!
+  username: String!
+}
+
+input UserInput {
+  birthDate: DateTime
+  email: String
+  firstName: String
+  secondName: String
+  username: String
+}
+
+type UserResponse {
+  next: Int
+  users: [User!]
+}

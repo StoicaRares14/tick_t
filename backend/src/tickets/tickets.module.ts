@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { Ticket } from './tickets.entity';
+import { Event } from '@events/events.entity';
+import { Ticket } from '@tickets/tickets.entity';
 
 import { EventsService } from '@events/events.service';
 import { TicketsResolver } from '@tickets/tickets.resolver';

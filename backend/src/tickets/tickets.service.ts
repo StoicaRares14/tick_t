@@ -29,7 +29,12 @@ export class TicketsService {
     }
 
     const tickets = await this.ticketsRepository.find({
-      where: findQuery,
+      where: {
+        eventId: findQuery.eventId,
+        userId: findQuery.userId,
+        purchaseDate: findQuery.purchaseDate,
+      },
+      take: query.limit,
     });
 
     if (tickets.length <= 1) {

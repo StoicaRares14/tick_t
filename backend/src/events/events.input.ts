@@ -1,4 +1,4 @@
-import { Field, InputType, Int } from '@nestjs/graphql';
+import { Field, Float, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
 export class CreateEventInput {
@@ -19,6 +19,15 @@ export class CreateEventInput {
 
   @Field({ nullable: true })
   location?: string;
+
+  @Field({ nullable: true })
+  date?: Date;
+
+  @Field(() => Float, { nullable: true })
+  price?: number;
+
+  @Field(() => String, { nullable: true })
+  time?: string;
 }
 
 @InputType()
@@ -40,6 +49,15 @@ export class EventInput {
 
   @Field({ nullable: true })
   location?: string;
+
+  @Field({ nullable: true })
+  date?: Date;
+
+  @Field(() => Float, { nullable: true })
+  price?: number;
+
+  @Field(() => String, { nullable: true })
+  time?: string;
 }
 
 @InputType()

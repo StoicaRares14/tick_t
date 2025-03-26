@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Field, ObjectType, Int } from '@nestjs/graphql';
+import { Field, ObjectType, Int, Float } from '@nestjs/graphql';
 
 import { Ticket } from '@tickets/tickets.entity';
 
@@ -22,8 +22,8 @@ export class Event {
   @Field(() => Int)
   ticketCount: number;
 
-  @Column({ type: 'int' })
-  @Field(() => Int)
+  @Column({ type: 'int', default: 0 })
+  @Field(() => Int, { defaultValue: 0 })
   purchasedCount: number;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
@@ -33,6 +33,18 @@ export class Event {
   @Column({ type: 'varchar', length: 255, nullable: true })
   @Field({ nullable: true })
   location?: string;
+
+  @Column({ type: 'date', nullable: true })
+  @Field({ nullable: true })
+  date?: Date;
+
+  @Column({ type: 'float', nullable: true })
+  @Field(() => Float, { nullable: true })
+  price?: number;
+
+  @Column({ type: 'varchar', nullable: true })
+  @Field(() => String, { nullable: true })
+  time?: string;
 
   @OneToMany(() => Ticket, (ticket) => ticket.event)
   tickets: Ticket[];

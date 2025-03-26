@@ -66,6 +66,9 @@ export class EventsService {
     name?: string;
     location?: string;
     available?: boolean;
+    time?: string;
+    date?: string;
+    price?: number;
   }): Promise<number> {
     let q = `select count(*) from "Events"`;
 

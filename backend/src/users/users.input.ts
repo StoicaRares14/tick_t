@@ -6,6 +6,9 @@ export class CreateUserInput {
   username: string;
 
   @Field()
+  email: string;
+
+  @Field()
   password: string;
 
   @Field()
@@ -22,6 +25,9 @@ export class CreateUserInput {
 export class UserInput {
   @Field({ nullable: true })
   username?: string;
+
+  @Field({ nullable: true })
+  email?: string;
 
   @Field({ nullable: true })
   firstName?: string;

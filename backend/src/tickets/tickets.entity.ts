@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { Field, ObjectType, Int } from '@nestjs/graphql';
 
 import { Event } from '@events/events.entity';
@@ -23,11 +29,19 @@ export class Ticket {
   @Field({ nullable: true })
   email: string;
 
+  @Column({ type: 'int', nullable: true })
+  @Field(() => Int, { nullable: true })
+  userId?: number;
+
   @ManyToOne(() => User, (user) => user.tickets)
-  @Field(() => Int)
+  @JoinColumn({ name: 'userId' })
   user?: User;
 
-  @ManyToOne(() => Event, (event) => event.tickets)
+  @Column({ type: 'int', nullable: false })
   @Field(() => Int)
+  eventId: number;
+
+  @ManyToOne(() => Event, (event) => event.tickets)
+  @JoinColumn({ name: 'eventId' })
   event: Event;
 }

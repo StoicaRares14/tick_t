@@ -3,7 +3,7 @@ import { Field, InputType, Int } from '@nestjs/graphql';
 @InputType()
 export class CreateTicketInput {
   @Field(() => Date)
-  purchaseDate: Date;
+  purchaseDate?: Date;
 
   @Field({ nullable: true })
   qrCode?: string;
@@ -21,7 +21,7 @@ export class CreateTicketInput {
 @InputType()
 export class TicketInput {
   @Field(() => Date)
-  purchaseDate?: Date;
+  purchaseDate: Date;
 
   @Field({ nullable: true })
   qrCode?: string;

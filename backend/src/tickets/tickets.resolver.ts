@@ -1,5 +1,9 @@
-import { UseGuards } from '@nestjs/common';
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import {
+  ExecutionContext,
+  InternalServerErrorException,
+  UseGuards,
+} from '@nestjs/common';
+import { Args, Context, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 
 import { AuthGuard } from '@auth/auth.guard';
 import { Role } from '@/enums/role.enum';
@@ -23,9 +27,19 @@ export class TicketsResolver {
   @UseGuards(AuthGuard, RolesGuard)
   @Roles(Role.User)
   async findAllTickets(
+    @Context() context: ExecutionContext,
     @Args('query', { type: () => QueryTicketInput, nullable: true })
     query: QueryTicketInput = { limit: 12 },
   ): Promise<TicketResponse> {
+    //@ts-ignore
+    const user = context.req.user;
+    if (!user) {
+      throw new InternalServerErrorException('User not found');
+    }
+
+    if (user) {
+      query.userId = user.id;
+    }
     return this.ticketsService.findAll(query);
   }
 
@@ -49,9 +63,7 @@ export class TicketsResolver {
     return await this.ticketsService.count({ purchaseDate, eventId });
   }
 
-  @Mutation(() => Ticket)
-  @UseGuards(AuthGuard, RolesGuard)
-  @Roles(Role.User)
+  @Mutation(() => [Ticket])
   async createTicket(
     @Args('tickets', { type: () => [CreateTicketInput] })
     tickets: CreateTicketInput[],

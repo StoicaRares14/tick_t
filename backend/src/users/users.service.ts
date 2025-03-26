@@ -37,7 +37,9 @@ export class UsersService {
   }
 
   async findOne(username: string): Promise<User | null> {
-    return this.usersRepository.findOneBy({ username });
+    return this.usersRepository.findOne({
+      where: [{ username }, { email: username }],
+    });
   }
 
   async create(userData: CreateUserInput): Promise<User> {

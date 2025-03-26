@@ -18,6 +18,7 @@ import { AuthModule } from '@auth/auth.module';
 import { EventsModule } from '@events/events.module';
 import { UsersModule } from '@users/users.module';
 import { TicketsModule } from '@tickets/tickets.module';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -32,7 +33,7 @@ import { TicketsModule } from '@tickets/tickets.module';
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
         entities: [User, Event, Ticket],
-        synchronize: true,
+        // synchronize: true,
       }),
       inject: [ConfigService],
     }),
@@ -40,7 +41,7 @@ import { TicketsModule } from '@tickets/tickets.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       include: [UsersModule, EventsModule, TicketsModule, AuthModule],
-      autoSchemaFile: true,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
     }),
     UsersModule,
